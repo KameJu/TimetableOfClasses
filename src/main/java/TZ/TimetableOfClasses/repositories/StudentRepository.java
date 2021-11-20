@@ -1,2 +1,7 @@
-package TZ.TimetableOfClasses.repositories;public interface StudentRepository {
+package TZ.TimetableOfClasses.repositories;
+
+import TZ.TimetableOfClasses.models.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
 }
