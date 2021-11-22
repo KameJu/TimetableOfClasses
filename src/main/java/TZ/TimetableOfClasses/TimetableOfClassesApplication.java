@@ -7,6 +7,7 @@ import TZ.TimetableOfClasses.models.Timetable;
 import TZ.TimetableOfClasses.repositories.GroupRepository;
 import TZ.TimetableOfClasses.repositories.StudentRepository;
 import TZ.TimetableOfClasses.repositories.TimetableRepository;
+import TZ.TimetableOfClasses.services.TimetableService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class TimetableOfClassesApplication implements CommandLineRunner {
 	private final GroupRepository groupRepository;
 	private final StudentRepository studentRepository;
 	private final TimetableRepository timetableRepository;
+
+	private final TimetableService timetableService;
+
 	private final ObjectMapper mapper;
 
 
@@ -50,9 +54,9 @@ public class TimetableOfClassesApplication implements CommandLineRunner {
 
 
 
-		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(291), LocalDate.now(), writer.writeValueAsString(lessons)));
-		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(292), LocalDate.now(), writer.writeValueAsString(lessons)));
-		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(293), LocalDate.now(), writer.writeValueAsString(lessons)));
+		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(291), LocalDate.now(), timetableService.getJsonLessons(lessons)));
+		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(292), LocalDate.now(), timetableService.getJsonLessons(lessons)));
+		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(293), LocalDate.now(), timetableService.getJsonLessons(lessons)));
 		timetableRepository.save(new Timetable(groupRepository.findGroupByNumber(293), LocalDate.of(2021, 11, 23), writer.writeValueAsString(lessons)));
 
 	}

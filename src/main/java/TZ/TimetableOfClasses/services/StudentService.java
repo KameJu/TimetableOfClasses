@@ -21,6 +21,11 @@ public class StudentService {
     private final GroupRepository groupRepository;
     private final TimetableRepository timetableRepository;
 
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
     public Student assignStudentToGroup(Long student_id, int group_number) {
         Student student = studentRepository.getById(student_id);
 
@@ -31,17 +36,35 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public List<Timetable> getAllTimetables(Long studentId) {
-        return timetableRepository.getTimetablesByGroup(getGroup(studentId));
+    public List<Timetable> getAllTimetables(Student student) {
+        return timetableRepository.getTimetablesByGroup(student.getGroup());
     }
 
-    public Timetable getTimetable(Long studentId, String date) {
-        LocalDate parseDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
-        return timetableRepository.getTimetableByDateAndGroup(parseDate, getGroup(studentId));
+    public Timetable getTimetable(Student student, LocalDate date) {
+        return timetableRepository.getTimetableByDateAndGroup(date, student.getGroup());
 
     }
 
     private Group getGroup(Long studentId) {
         return studentRepository.findById(studentId).get().getGroup();
+    }
+
+    public Student save(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public void delete(Student student) {
+            studentRepository.delete(student);
+    }
+
+    public Student update(Student studentFromDb, Student student) {
+        fillUpdates(studentFromDb, student);
+        return studentRepository.save(studentFromDb);
+    }
+
+    private void fillUpdates(Student studentFromDb, Student student) {
+        studentFromDb.setFirstName(student.getFirstName());
+        studentFromDb.setLastName(student.getLastName());
+        studentFromDb.setGroup(student.getGroup());
     }
 }

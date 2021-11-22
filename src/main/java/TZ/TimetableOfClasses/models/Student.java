@@ -43,7 +43,6 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.group = group;
-        System.out.println(firstName);
     }
 
     @Override
