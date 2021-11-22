@@ -1,56 +1,64 @@
 package TZ.TimetableOfClasses.models;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "study_group")
 @NoArgsConstructor
 public class Group {
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    @Id
+    @NotNull
     private int number;
 
-    @OneToMany(mappedBy = "group")
-    private List<Student> students = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "group", orphanRemoval = true)
+    private Set<Student> students = new HashSet<>();
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<Timetable> timetable = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "group", orphanRemoval = true)
+    private Set<Timetable> timetables = new HashSet<>();
 
-    public Group(int number, List<Student> students, List<Timetable> timetable) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Group(int number) {
         this.number = number;
-        this.students = students;
-        this.timetable = timetable;
     }
 
-    public Long getId() {
-        return id;
+
+    public void addStudent(Student student) {
+        students.add(student);
+        student.setGroup(this);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    public List<Timetable> getTimetable() {
-        return timetable;
-    }
-
-    public void setTimetable(List<Timetable> timetable) {
-        this.timetable = timetable;
+    public void removeStudent(Student student) {
+        students.remove(student);
+        student.setGroup(null);
     }
 
     public int getNumber() {
@@ -59,5 +67,13 @@ public class Group {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }
