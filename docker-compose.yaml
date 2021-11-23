@@ -21,7 +21,7 @@ services:
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: password
-            POSTGRES_DB: pz
+            POSTGRES_DB: postgres
             PGDATA: /var/lib/postgresql/data/pgdata
         container_name: postgres
         volumes:
