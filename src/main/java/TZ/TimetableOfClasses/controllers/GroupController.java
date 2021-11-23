@@ -1,24 +1,45 @@
 package TZ.TimetableOfClasses.controllers;
 
 import TZ.TimetableOfClasses.models.Group;
-import TZ.TimetableOfClasses.repositories.GroupRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import TZ.TimetableOfClasses.services.GroupService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/groups")
 public class GroupController {
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupService groupService;
 
     @GetMapping
     public List<Group> getGroups() {
-        return groupRepository.findAll();
+        return groupService.findAll();
+    }
+
+    @GetMapping("/{groupNumber}")
+    public Group findOne(@PathVariable("groupNumber") Group group) {
+        return group;
+    }
+
+    @PutMapping()
+    public Group create(@RequestBody Group group) {
+        return groupService.create(group);
+    }
+
+    @DeleteMapping("/{groupNumber}")
+    public void delete(@PathVariable int groupNumber) {
+        groupService.delete(groupNumber);
+    }
+
+    @PutMapping("/{groupNumber}")
+    public Group update(
+            @PathVariable("groupNumber") int groupNumber,
+            @RequestBody Group group
+    ){
+        return groupService.update(groupNumber, group);
     }
 }

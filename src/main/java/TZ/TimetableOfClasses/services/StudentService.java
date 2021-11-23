@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -45,11 +44,7 @@ public class StudentService {
 
     }
 
-    private Group getGroup(Long studentId) {
-        return studentRepository.findById(studentId).get().getGroup();
-    }
-
-    public Student save(Student student) {
+    public Student create(Student student) {
         return studentRepository.save(student);
     }
 

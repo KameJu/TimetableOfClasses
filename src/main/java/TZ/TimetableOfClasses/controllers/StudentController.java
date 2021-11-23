@@ -23,14 +23,14 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
+    @PutMapping
+    public Student create(@RequestBody Student student) {
+        return studentService.create(student);
+    }
+
     @GetMapping("/{studentId}")
     public Student getOne(@PathVariable("studentId") Student student) {
         return student;
-    }
-
-    @PutMapping
-    public Student create(@RequestBody Student student) {
-        return studentService.save(student);
     }
 
     @PutMapping("{/studentId}")
