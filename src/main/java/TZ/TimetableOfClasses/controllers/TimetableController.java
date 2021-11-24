@@ -24,7 +24,7 @@ public class TimetableController {
         return timetable;
     }
 
-    @PutMapping()
+    @PutMapping
     public Timetable create(@RequestBody Timetable timetable) {
         return timetableService.create(timetable);
     }

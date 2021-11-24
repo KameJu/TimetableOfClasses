@@ -17,6 +17,10 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public Group findOne(int groupNumber) {
+        return groupRepository.findGroupByNumber(groupNumber);
+    }
+
     public Group create(Group group) {
         return groupRepository.save(group);
     }
@@ -26,17 +30,20 @@ public class GroupService {
     }
 
     public Group update(int groupNumber, Group group) {
-        Group groupFromDB = fillUpdates(groupRepository.findGroupByNumber(groupNumber), group);
+        Group groupFromDB = groupRepository.findGroupByNumber(groupNumber);
+        System.out.println(groupFromDB.toString());
+        fillUpdates(groupRepository.findGroupByNumber(groupNumber), group);
+        System.out.println(groupFromDB.toString());
         return groupRepository.save(groupFromDB);
     }
 
-    private Group fillUpdates(Group groupFromDB, Group group) {
-        if (group.getTimetables() != null) {
+    private void fillUpdates(Group groupFromDB, Group group) {
+        if (!group.getTimetables().isEmpty()) {
             groupFromDB.setStudents(group.getStudents());
         }
-        if (group.getStudents() != null) {
+        if (!group.getStudents().isEmpty()) {
             groupFromDB.setTimetables(group.getTimetables());
         }
-        return groupFromDB;
     }
+
 }

@@ -41,9 +41,15 @@ public class TimetableService {
     }
 
     private void fillUpdate(Timetable fromDb, Timetable timetable) {
-        fromDb.setLessons(timetable.getLessons());
-        fromDb.setGroup(timetable.getGroup());
-        fromDb.setDate(timetable.getDate());
+        if (timetable.getLessons() != null) {
+            fromDb.setLessons(timetable.getLessons());
+        }
+        if (timetable.getGroup() != null) {
+            fromDb.setGroup(timetable.getGroup());
+        }
+        if (timetable.getDate() != null) {
+            fromDb.setDate(timetable.getDate());
+        }
     }
 
 

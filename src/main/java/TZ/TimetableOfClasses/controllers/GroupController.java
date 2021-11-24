@@ -21,8 +21,8 @@ public class GroupController {
     }
 
     @GetMapping("/{groupNumber}")
-    public Group findOne(@PathVariable("groupNumber") Group group) {
-        return group;
+    public Group findOne(@PathVariable int groupNumber) {
+       return groupService.findOne(groupNumber);
     }
 
     @PutMapping()

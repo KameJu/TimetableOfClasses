@@ -3,6 +3,7 @@ package TZ.TimetableOfClasses.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "study_group")
 @NoArgsConstructor
+@ToString
 public class Group {
 
     @Id
